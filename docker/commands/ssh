@@ -1,0 +1,36 @@
+#!/bin/bash
+
+for i in "$@"
+do
+case $i in
+    -u|--user)
+    LOGIN="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -s|--service)
+    SERVICE="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    --default)
+    DEFAULT=YES
+    shift # past argument
+    shift # past value
+    ;;
+esac
+done
+
+if [[ -z ${LOGIN} ]]; then
+  USER=1000
+else
+  USER=${LOGIN}
+fi
+
+if [[ -z ${SERVICE} ]]; then
+  SERVICE=app
+else
+  SERVICE=${SERVICE}
+fi
+
+docker-compose exec --user ${USER} ${SERVICE} bash

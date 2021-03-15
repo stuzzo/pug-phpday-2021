@@ -1,0 +1,5 @@
+.database
+.idea
+.DS_Store
+logs
+!logs/.gitignore

@@ -1,0 +1,6 @@
+.idea
+.git
+docker
+!docker/build
+.database
+logs

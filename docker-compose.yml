@@ -1,0 +1,43 @@
+version: '3.6'
+
+services: 
+  app:
+    build: 
+      context: .
+      dockerfile: docker/build/Dockerfile
+      args:
+        # Complete reference https://dockerfile.readthedocs.io/en/latest/content/DockerImages/dockerfiles/php-nginx-dev.html
+        - IMAGE=webdevops/php-nginx-dev:8.0
+    environment: 
+      WEB_ALIAS_DOMAIN: pug-phpday.vm
+      WEB_DOCUMENT_ROOT: /app/public
+      LOG_STDOUT: /logs/stdout.log
+      LOG_STDERR: /logs/stderr.log
+      PHP_DATE_TIMEZONE: "Europe/Rome"
+      #XDEBUG_MODE: debug
+      #XDEBUG_REMOTE_AUTOSTART: 1
+      #XDEBUG_REMOTE_CONNECT_BACK: "off"
+      #XDEBUG_CLIENT_PORT: 9003
+      #XDEBUG_CLIENT_HOST: 172.19.0.1
+      #XDEBUG_REMOTE_HOST: dockerhost
+      #XDEBUG_START_WITH_REQUEST: "yes"
+      #XDEBUG_DISCOVER_CLIENT_HOST: 1
+      #XDEBUG_IDE_KEY: docker
+    ports:
+      - "80:80"
+      #- "443:443"
+    volumes: 
+      - ./app:/app:delegated
+      - ./logs:/logs:delegated
+    extra_hosts:
+      - ${host:-host}:host-gateway
+
+  database:
+    image: library/mysql:5.7
+    volumes:
+    - ./.database:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=cqrs
+      - MYSQL_USER=cqrs
+      - MYSQL_PASSWORD=cqrs
+      - MYSQL_ROOT_PASSWORD=root

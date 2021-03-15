@@ -1,0 +1,8 @@
+#App\DTO\Input\GetUserRequestDTO:
+#  collectionOperations: []
+#
+#  itemOperations:
+#    get:
+#      method: 'GET'
+#
+#  shortName: 'Users'
