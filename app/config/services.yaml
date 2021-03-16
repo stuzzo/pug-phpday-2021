@@ -27,6 +27,14 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
+    _instanceof:
+        App\Handler\Command\CommandHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: command.bus }
+        App\Handler\Query\QueryHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: query.bus }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 #    App\Repository\User\UserRepository:

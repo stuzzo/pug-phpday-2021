@@ -6,14 +6,8 @@ namespace App\DTO\Output;
 
 final class GetUserResponseDTO
 {
-    /**
-     * @var string $name
-     */
     public string $name;
 
-    /**
-     * @var string $email
-     */
     public string $email;
 
     public function __construct(string $name, string $email)

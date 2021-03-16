@@ -23,7 +23,7 @@ use App\DTO\Output\GetUserResponseDTO;
     shortName: 'User',
     output: GetUserResponseDTO::class
 )]
-final class GetUserRequestDTO
+final class GetUserRequestDTO implements RequestDTO
 {
     #[ApiProperty(identifier: true)]
     public string $id;

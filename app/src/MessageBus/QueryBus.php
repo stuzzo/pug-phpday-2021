@@ -4,25 +4,23 @@ declare(strict_types=1);
 
 namespace App\MessageBus;
 
-use Symfony\Component\Messenger\Envelope;
+use App\Query\QueryInterface;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-final class QueryBus
+final class QueryBus implements QueryBusInterface
 {
-    use HandleTrait;
-
-    public function __construct(MessageBusInterface $messageBus)
-    {
-        $this->messageBus = $messageBus;
+    use HandleTrait {
+        handle as handleQuery;
     }
 
-    /**
-     * @param object|Envelope $query
-     * @return mixed The handler returned value
-     */
-    public function query($query): mixed
+    public function __construct(MessageBusInterface $queryBus)
     {
-        return $this->handle($query);
+        $this->messageBus = $queryBus;
+    }
+
+    public function handle(QueryInterface $query): mixed
+    {
+        return $this->handleQuery($query);
     }
 }

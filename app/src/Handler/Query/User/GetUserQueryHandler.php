@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Handler\Query;
+namespace App\Handler\Query\User;
 
 use App\DTO\Output\GetUserResponseDTO;
 use App\Entity\User;
+use App\Handler\Query\QueryHandlerInterface;
 use App\Query\User\GetUserQuery;
 use App\Repository\User\UserRepositoryInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-final class GetUserQueryHandler implements MessageHandlerInterface
+final class GetUserQueryHandler implements QueryHandlerInterface
 {
     private UserRepositoryInterface $repository;
 

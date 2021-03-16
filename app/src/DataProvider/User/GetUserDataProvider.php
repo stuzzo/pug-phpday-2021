@@ -9,14 +9,14 @@ use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
 use App\DTO\Request\GetUserRequestDTO;
 use App\DTO\Output\GetUserResponseDTO;
 use App\Exception\ResourceNotFoundException;
-use App\MessageBus\QueryBus;
+use App\MessageBus\QueryBusInterface;
 use App\Query\User\GetUserQuery;
 
 final class GetUserDataProvider implements ItemDataProviderInterface, RestrictedDataProviderInterface
 {
-    private QueryBus $queryBus;
+    private QueryBusInterface $queryBus;
 
-    public function __construct(QueryBus $queryBus)
+    public function __construct(QueryBusInterface $queryBus)
     {
         $this->queryBus = $queryBus;
     }
@@ -24,7 +24,7 @@ final class GetUserDataProvider implements ItemDataProviderInterface, Restricted
     public function getItem(string $resourceClass, $id, string $operationName = null, array $context = []): GetUserResponseDTO
     {
         $query = new GetUserQuery($id);
-        $userDTO = $this->queryBus->query($query);
+        $userDTO = $this->queryBus->handle($query);
 
         if (null === $userDTO) {
             throw new ResourceNotFoundException('User', $id);
