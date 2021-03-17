@@ -12,6 +12,7 @@ use App\Query\User\UserWithSameEmailExistsQuery;
 use App\Service\UuidService;
 use App\Service\ValidatorService;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class RegisterUserController
 {
@@ -36,13 +37,13 @@ class RegisterUserController
     {
         $errors = $this->validatorService->validateData($data);
         if ($errors) {
-            return new JsonResponse($errors, JsonResponse::HTTP_BAD_REQUEST);
+            return new JsonResponse($errors, Response::HTTP_BAD_REQUEST);
         }
 
         if ($this->userWithSameEmailExists($data)) {
             return new JsonResponse(
                 ['error' => 'User with the same email already exists'],
-                JsonResponse::HTTP_CONFLICT
+                Response::HTTP_CONFLICT
             );
         }
 
@@ -53,7 +54,7 @@ class RegisterUserController
 
         return new JsonResponse(
             ['id' => $uuid],
-            JsonResponse::HTTP_ACCEPTED
+            Response::HTTP_ACCEPTED
         );
     }
 

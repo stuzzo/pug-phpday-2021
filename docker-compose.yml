@@ -14,15 +14,6 @@ services:
       LOG_STDOUT: /logs/stdout.log
       LOG_STDERR: /logs/stderr.log
       PHP_DATE_TIMEZONE: "Europe/Rome"
-      #XDEBUG_MODE: debug
-      #XDEBUG_REMOTE_AUTOSTART: 1
-      #XDEBUG_REMOTE_CONNECT_BACK: "off"
-      #XDEBUG_CLIENT_PORT: 9003
-      #XDEBUG_CLIENT_HOST: 172.19.0.1
-      #XDEBUG_REMOTE_HOST: dockerhost
-      #XDEBUG_START_WITH_REQUEST: "yes"
-      #XDEBUG_DISCOVER_CLIENT_HOST: 1
-      #XDEBUG_IDE_KEY: docker
     ports:
       - "80:80"
       #- "443:443"
